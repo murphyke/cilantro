@@ -79,6 +79,7 @@ define [
             nodeType: 'condition'
             showInfo: true
             showChart: false
+            showStats: true
             showDefaultControl: true
             condensedLayout: false
 
@@ -104,7 +105,7 @@ define [
                 @info.show new @regionViews.info
                     model: @model
 
-            if @model.stats?
+            if @model.stats? and @options.showStats
                 @stats.show new @regionViews.stats
                     model: @model
 
@@ -157,13 +158,15 @@ define [
             if @options.hideSingleFieldInfo and @collection.length < 2
                 options.showInfo = false
 
-            # Only check if another is not already rendered
-            if not @fieldChartIndex?
-                if options.showChart isnt false and model.links?.distribution?
-                    @fieldChartIndex = index
-                    options.showChart = true
-            else
-                options.condensedLayout = true
+            # KPM: none of the PCGC/Varify compound concepts fits the model of
+            # 'primary concept and secondary concepts', so dispense with this
+#            # Only check if another is not already rendered
+#            if not @fieldChartIndex?
+#                if options.showChart isnt false and model.links?.distribution?
+#                    @fieldChartIndex = index
+#                    options.showChart = true
+#            else
+#                options.condensedLayout = true
 
             return options
 
